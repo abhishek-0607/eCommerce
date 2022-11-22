@@ -33,7 +33,13 @@ router.post("/login", async (req, res) => {
         status: "failed",
       });
     }
-    const isMatch = bcrypt.compare();
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      return res.status(500).json({
+        message: "Invalid Credentials",
+        status: "failed",
+      });
+    }
 
     return res.status(201).send(user);
   } catch (e) {
