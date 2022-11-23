@@ -4,6 +4,10 @@ const router = require("express").Router();
 
 const bcrypt = require("bcryptjs");
 
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
+
 router.post("/register", async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
@@ -40,8 +44,13 @@ router.post("/login", async (req, res) => {
         status: "failed",
       });
     }
-
-    return res.status(201).send(user);
+    const token = jwt.sign(
+      { id: user.id, idAdmin: user.isAdmin },
+      process.env.KEY,
+      { expiresIn: "3d" }
+    );
+    const { password, ...others } = user._doc;
+    return res.status(201).send({ ...others, token });
   } catch (e) {
     return res.status(500).json({ message: e.message, status: "failed" });
   }
