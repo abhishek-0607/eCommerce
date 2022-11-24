@@ -5,9 +5,7 @@ const verifyToken = (req, res, next) => {
   if (authHeader) {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.KEY, (err, user) => {
-      if (err) {
-        return res.status(403).json("token is not valid!");
-      }
+      if (err) res.status(403).json("token is not valid!");
       req.user = user;
       next();
     });
@@ -15,12 +13,12 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json("you are not authenticated");
   }
 };
-const authorize = (req, res, next) => {
+const verifyAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json("you are not allowed to do that");
+      res.status(403).json("you are not allowed to do that!!!");
     }
   });
 };
@@ -34,4 +32,4 @@ const verifyAdmin = (req, res, next) => {
     }
   });
 };
-module.exports = { verifyToken, authorize, verifyAdmin };
+module.exports = { verifyToken, verifyAuthorization, verifyAdmin };
