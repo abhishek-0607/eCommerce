@@ -1,10 +1,13 @@
 const express = require("express");
-const { authorize, verifyAdmin } = require("../middlewares/verifyToken");
+const {
+  verifyAuthorization,
+  verifyAdmin,
+} = require("../middlewares/verifyToken");
 const User = require("../models/user");
 const router = express.Router();
 
 //UPDATE USER
-router.put("/:id", authorize, async (req, res) => {
+router.put("/:id", verifyAuthorization, async (req, res) => {
   try {
     console.log(req.user);
     const updatedUser = await User.findByIdAndUpdate(
@@ -21,7 +24,7 @@ router.put("/:id", authorize, async (req, res) => {
 });
 
 //DELETE USER
-router.delete(":id", authorize, async (req, res) => {
+router.delete(":id", verifyAuthorization, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     return res.status(200).json("user has been deleted...");
