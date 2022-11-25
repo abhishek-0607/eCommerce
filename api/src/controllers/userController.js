@@ -38,9 +38,10 @@ router.get("/find/:id", verifyAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
-    return res.status(200).json({ ...others });
+    return res.status(200).json(others);
   } catch (e) {
     return res.status(500).json({ message: e.message, status: "failed" });
   }
 });
+
 module.exports = router;
