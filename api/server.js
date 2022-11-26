@@ -4,5 +4,5 @@ require("dotenv").config();
 
 app.listen(process.env.PORT || 5000, () => {
   connect();
-  console.log("Listening to PORT 8080");
+  console.log("Listening to PORT 5000");
 });
