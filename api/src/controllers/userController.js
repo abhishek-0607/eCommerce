@@ -24,7 +24,7 @@ router.put("/:id", verifyAuthorization, async (req, res) => {
 });
 
 //DELETE USER
-router.delete(":id", verifyAuthorization, async (req, res) => {
+router.delete("/:id", verifyAuthorization, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     return res.status(200).json("user has been deleted...");
@@ -36,9 +36,20 @@ router.delete(":id", verifyAuthorization, async (req, res) => {
 //GET USER BY ID
 router.get("/find/:id", verifyAdmin, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    const { password, ...others } = user._doc;
-    return res.status(200).json(others);
+    const user = await User.findById(req.params.id).select("-password");
+    // const { password, ...others } = user._doc;
+    return res.status(200).json(user);
+  } catch (e) {
+    return res.status(500).json({ message: e.message, status: "failed" });
+  }
+});
+
+// GET ALL USERS
+router.get("/findall", verifyAdmin, async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    // const { password, ...others } = user._doc;
+    return res.status(200).json(users);
   } catch (e) {
     return res.status(500).json({ message: e.message, status: "failed" });
   }
