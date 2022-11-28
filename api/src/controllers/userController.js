@@ -45,9 +45,12 @@ router.get("/find/:id", verifyAdmin, async (req, res) => {
 });
 
 // GET ALL USERS
-router.get("/findall", verifyAdmin, async (req, res) => {
+router.get("/", verifyAdmin, async (req, res) => {
+  const query = req.query.new;
   try {
-    const users = await User.find().select("-password");
+    const users = query
+      ? await User.find().sort({ id: -1 }).limit(1)
+      : await User.find().select("-password");
     // const { password, ...others } = user._doc;
     return res.status(200).json(users);
   } catch (e) {
@@ -55,4 +58,20 @@ router.get("/findall", verifyAdmin, async (req, res) => {
   }
 });
 
+//GET USER STATS
+router.get("/stats", verifyAdmin, async (req, res) => {
+  const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+  try {
+    const data = await User.aggregate([
+      { $match: { createdAt: { $gte: lastYear } } },
+      { $project: { month: { $month: "$createdAt" } } },
+      { $group: { _id: "$month", total: { $sum: 1 } } },
+    ]);
+
+    return res.status(200).json(data);
+  } catch (e) {
+    return res.status(500).json({ message: e.message, status: "failed" });
+  }
+});
 module.exports = router;
