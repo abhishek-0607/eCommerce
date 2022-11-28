@@ -8,7 +8,7 @@ const productSchema = new Schema(
     categories: { type: Array },
     size: { type: Array },
     color: { type: String },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     inStock: { type: Boolean, default: true },
   },
   { timeStamps: true, versionKey: false }
