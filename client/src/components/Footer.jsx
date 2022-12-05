@@ -1,10 +1,8 @@
 import {
-  Email,
   EmailOutlined,
   Facebook,
   Instagram,
   Phone,
-  Room,
   RoomOutlined,
   Twitter,
 } from "@mui/icons-material";
