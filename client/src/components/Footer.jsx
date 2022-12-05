@@ -1,4 +1,13 @@
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
+import {
+  Email,
+  EmailOutlined,
+  Facebook,
+  Instagram,
+  Phone,
+  Room,
+  RoomOutlined,
+  Twitter,
+} from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 const Container = styled.div`
@@ -33,12 +42,28 @@ const Center = styled.div`
   flex: 1;
   padding: 20px;
 `;
-const Title = styled.div``;
-const List = styled.div``;
-const ListItem = styled.div``;
+const Title = styled.h3`
+  margin-bottom: 30px;
+`;
+const List = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+`;
+const ListItem = styled.li`
+  width: 50%;
+  margin-bottom: 10px;
+`;
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+`;
+const ContactItem = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
 `;
 
 export const Footer = () => {
@@ -70,13 +95,26 @@ export const Footer = () => {
           <ListItem>Cart</ListItem>
           <ListItem>Man Fashion</ListItem>
           <ListItem>Woman Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
+          <ListItem>Accesories</ListItem>
+          <ListItem>My Account</ListItem>
+          <ListItem>Order Tracking</ListItem>
+          <ListItem>WishList</ListItem>
+          <ListItem>Terms</ListItem>
         </List>
       </Center>
-      <Right></Right>
+      <Right>
+        <Title>Contact</Title>
+        <ContactItem>
+          <RoomOutlined style={{ marginRight: "10px" }} /> LIG 340, A sector,
+          Sonagiri, Bhopal 462021
+        </ContactItem>
+        <ContactItem>
+          <Phone style={{ marginRight: "10px" }} /> +918823070602
+        </ContactItem>
+        <ContactItem>
+          <EmailOutlined style={{ marginRight: "10px" }} /> absilawat@gmail.com
+        </ContactItem>
+      </Right>
     </Container>
   );
 };
