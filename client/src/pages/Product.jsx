@@ -1,3 +1,4 @@
+import { Add, Remove, RemoveCircle } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 import { Announcement } from "../components/Announcement";
@@ -56,8 +57,40 @@ const FilterColor = styled.div`
 const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
+  cursor: pointer;
 `;
 const FilterSizeOption = styled.option``;
+const AddContainer = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const AmountContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+`;
+const Amount = styled.span`
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+`;
+const Button = styled.button`
+  padding: 15px;
+  border: 2px solid teal;
+  background-color: white;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background-color: #f8f4f4;
+  }
+`;
 export const Product = () => {
   return (
     <Container>
@@ -95,6 +128,15 @@ export const Product = () => {
               </FilterSize>
             </Filter>
           </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <Remove />
+
+              <Amount>1</Amount>
+              <Add />
+            </AmountContainer>
+            <Button>ADD TO CART</Button>
+          </AddContainer>
         </InfoContainer>
       </Wrapper>
       <Newsletter />
