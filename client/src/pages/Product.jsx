@@ -1,4 +1,4 @@
-import { Add, Remove, RemoveCircle } from "@mui/icons-material";
+import { Add, Remove } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 import { Announcement } from "../components/Announcement";
