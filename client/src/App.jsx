@@ -1,7 +1,7 @@
 import "./App.css";
 
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { ProductList } from "./pages/ProductList";
 import { Product } from "./pages/Product";
@@ -11,6 +11,7 @@ import { Login } from "./pages/Login";
 import { Cart } from "./pages/Cart";
 
 function App() {
+  const user = true;
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,8 +21,14 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
 
           <Route path="/cart" element={<Cart />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={user ? <Navigate to="/" /> : <Register />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
